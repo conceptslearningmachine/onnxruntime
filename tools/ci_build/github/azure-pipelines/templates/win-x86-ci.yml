@@ -86,14 +86,6 @@ jobs:
           arguments: '--configuration Debug /p:Platform="Any CPU"'
           workingDirectory: '$(Build.SourcesDirectory)\csharp'
           
-      - task: DotNetCoreCLI@2
-        displayName: 'Test C# Debug'
-        inputs:
-          command: test
-          projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.sln'
-          configuration: 'Debug'          
-          arguments: '--configuration Debug /p:Platform="Any CPU"'
-          workingDirectory: '$(Build.SourcesDirectory)\csharp'
 
     # Run test coverage report
     - ${{ if eq(parameters['DoTestCoverage'], 'true') }}:
