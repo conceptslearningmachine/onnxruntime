@@ -16,7 +16,7 @@ parameters:
   CudaVersion: ''
   AgentPool: 'Win-CPU'
   AgentDemands: []
-  PackageId: Microsoft.ML.OnnxRuntime
+  OrtPackageId: Microsoft.ML.OnnxRuntime
 jobs:
 - job: ${{ parameters.JobName }}
   timeoutInMinutes: 120
@@ -63,7 +63,7 @@ jobs:
           command: restore
           projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.sln'
           configuration: 'Debug'          
-          arguments: '--configuration Debug -p:Platform="Any CPU" -p:PackageId=${{ parameters.PackageId}}'
+          arguments: '--configuration Debug -p:Platform="Any CPU" -p:OrtPackageId=${{ parameters.OrtPackageId}}'
           workingDirectory: '$(Build.SourcesDirectory)\csharp'
       - task: VSBuild@1
         displayName: 'Build Debug'
@@ -91,7 +91,7 @@ jobs:
           command: build
           projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.sln'
           configuration: 'Debug'          
-          arguments: '--configuration Debug -p:Platform="Any CPU" -p:PackageId=${{ parameters.PackageId}}'
+          arguments: '--configuration Debug -p:Platform="Any CPU" -p:OrtPackageId=${{ parameters.OrtPackageId}}'
           workingDirectory: '$(Build.SourcesDirectory)\csharp'
           
       - task: DotNetCoreCLI@2
@@ -100,7 +100,7 @@ jobs:
           command: test
           projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.sln'
           configuration: 'Debug'          
-          arguments: '--configuration Debug -p:Platform="Any CPU" -p:PackageId=${{ parameters.PackageId}}'
+          arguments: '--configuration Debug -p:Platform="Any CPU" -p:OrtPackageId=${{ parameters.OrtPackageId}}'
           workingDirectory: '$(Build.SourcesDirectory)\csharp'
 
     # Run test coverage report
@@ -119,7 +119,7 @@ jobs:
         command: restore
         projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.sln'
         configuration: 'RelWithDebInfo'          
-        arguments: '--configuration RelWithDebInfo -p:Platform="Any CPU" -p:PackageId=${{ parameters.PackageId}}'
+        arguments: '--configuration RelWithDebInfo -p:Platform="Any CPU" -p:OrtPackageId=${{ parameters.OrtPackageId}}'
         workingDirectory: '$(Build.SourcesDirectory)\csharp'
 
     - task: VSBuild@1
@@ -148,7 +148,7 @@ jobs:
         command: build
         projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.sln'
         configuration: 'RelWithDebInfo'          
-        arguments: '--configuration RelWithDebInfo -p:Platform="Any CPU" -p:PackageId=${{ parameters.PackageId}}'
+        arguments: '--configuration RelWithDebInfo -p:Platform="Any CPU" -p:OrtPackageId=${{ parameters.OrtPackageId}}'
         workingDirectory: '$(Build.SourcesDirectory)\csharp'
 
     - task: DotNetCoreCLI@2
@@ -157,7 +157,7 @@ jobs:
         command: test
         projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.sln'
         configuration: 'RelWithDebInfo'          
-        arguments: '--configuration RelWithDebInfo -p:Platform="Any CPU" -p:PackageId=${{ parameters.PackageId}}'
+        arguments: '--configuration RelWithDebInfo -p:Platform="Any CPU" -p:OrtPackageId=${{ parameters.OrtPackageId}}'
         workingDirectory: '$(Build.SourcesDirectory)\csharp'
 
     - task: PublishTestResults@2
